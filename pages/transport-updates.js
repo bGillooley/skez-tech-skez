@@ -3,19 +3,20 @@ import { useState, useEffect } from "react";
 export default function TransportUpdate() {
   const [data, setData] = useState(null);
   const [isLoading, setLoading] = useState(false);
+
   useEffect(() => {
     setLoading(true);
 
     fetch("https://api.nationaltransport.ie/gtfsr/v1?format=json", {
       method: "GET",
-      mode: "no-cors",
       // Request headers
       headers: {
         "Cache-Control": "no-cache",
-        "x-api-key": "0e848d569e2f478da345d873053d2522",
+        "x-api-key": process.env.DUB_TRANSPORT_API,
       },
     })
       .then((response) => {
+        console.log(process.env.DUB_TRANSPORT_API);
         console.log(response.status);
         console.log(response.text());
       })
