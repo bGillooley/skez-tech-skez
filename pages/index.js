@@ -1,25 +1,22 @@
-import { EmblaCarousel } from "../components/emblaCarousel";
-import Image from "next/image";
+import { useState, useEffect } from "react";
+function HomePage() {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-const SLIDE_COUNT = 4;
-const SLIDES = Array.from(Array(SLIDE_COUNT).keys());
+  useEffect(() => {
+    fetch("https://api.nationaltransport.ie/gtfsr/v1?format=json", {
+      method: "GET",
+      mode: "no-cors",
+      // Request headers
+      headers: {
+        "Cache-Control": "no-cache",
+        "x-api-key": "0e848d569e2f478da345d873053d2522",
+      },
+    }).then((response) => console.log(response));
+  }, []);
 
-export default function Home() {
-  return (
-    <>
-      <div className="relative w-full h-screen">
-        <h1 className="block py-8 px-2 text-2xl text-sky-400">
-          Jigs Skez Extravaganza
-        </h1>
-        <Image
-          src="/static/windmill-skerries-dublin.jpg"
-          width={1460}
-          height={822}
-          alt="Skez"
-          className="w-full h-full object-cover object-left relative block"
-        />
-      </div>
-      <EmblaCarousel slides={SLIDES} />
-    </>
-  );
+  return <div>Welcome to Next.js!</div>;
 }
+
+export default HomePage;
